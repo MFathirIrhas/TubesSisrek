@@ -1,0 +1,18 @@
+F:\College\Asprak\ASD - 38 - 2015\Kunci Jawaban\Modul 8\TubesSisrek\TubesSisrek\bin\Debug\TubesSisrek.exe.config
+F:\College\Asprak\ASD - 38 - 2015\Kunci Jawaban\Modul 8\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.csprojResolveAssemblyReference.cache
+F:\College\Asprak\ASD - 38 - 2015\Kunci Jawaban\Modul 8\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.Form1.resources
+F:\College\Asprak\ASD - 38 - 2015\Kunci Jawaban\Modul 8\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.Properties.Resources.resources
+F:\College\Asprak\ASD - 38 - 2015\Kunci Jawaban\Modul 8\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.csproj.GenerateResource.Cache
+F:\College\Asprak\ASD - 38 - 2015\Kunci Jawaban\Modul 8\TubesSisrek\TubesSisrek\bin\Debug\TubesSisrek.exe
+F:\College\Asprak\ASD - 38 - 2015\Kunci Jawaban\Modul 8\TubesSisrek\TubesSisrek\bin\Debug\TubesSisrek.pdb
+F:\College\Asprak\ASD - 38 - 2015\Kunci Jawaban\Modul 8\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.exe
+F:\College\Asprak\ASD - 38 - 2015\Kunci Jawaban\Modul 8\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.pdb
+F:\College\Semester 7\Matkul\SISREK\Tubes\TubesSisrek\TubesSisrek\bin\Debug\TubesSisrek.exe.config
+F:\College\Semester 7\Matkul\SISREK\Tubes\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.exe
+F:\College\Semester 7\Matkul\SISREK\Tubes\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.pdb
+F:\College\Semester 7\Matkul\SISREK\Tubes\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.csprojResolveAssemblyReference.cache
+F:\College\Semester 7\Matkul\SISREK\Tubes\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.Form1.resources
+F:\College\Semester 7\Matkul\SISREK\Tubes\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.Properties.Resources.resources
+F:\College\Semester 7\Matkul\SISREK\Tubes\TubesSisrek\TubesSisrek\obj\Debug\TubesSisrek.csproj.GenerateResource.Cache
+F:\College\Semester 7\Matkul\SISREK\Tubes\TubesSisrek\TubesSisrek\bin\Debug\TubesSisrek.exe
+F:\College\Semester 7\Matkul\SISREK\Tubes\TubesSisrek\TubesSisrek\bin\Debug\TubesSisrek.pdb
