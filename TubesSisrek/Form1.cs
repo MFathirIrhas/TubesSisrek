@@ -239,13 +239,13 @@ namespace TubesSisrek
             
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void button10_Click(object sender, EventArgs e) //Matrix R
         {
             string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-            //string path = projectPath + @"/PreProcessedDataSet/Data-Latih";
-            string path = projectPath + @"/ImageDataSet/Data-Latih";
-            string path2 = projectPath + @"/RawDataSet2/MatrixR.xlsx";
+            string path = projectPath + @"/HistEqDataSet/Data-Latih";
+            //string path = projectPath + @"/ImageDataSet/Data-Latih";
+            string path2 = projectPath + @"/pcaProcess/MatrixR.xlsx";
 
             Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
@@ -260,7 +260,7 @@ namespace TubesSisrek
 
             int i = 1;
             int img = 0;
-            for (int j = 1; j <=100 /*2178*/; j++)
+            for (int j = 1; j <=2178; j++)
             {
                 Image image = Image.FromFile(path + "/" + sortedImages[img].Name);
                 Bitmap b = new Bitmap(image);
@@ -282,7 +282,138 @@ namespace TubesSisrek
                 i = 1;
             }
             wb.Save();
-            MessageBox.Show("Sudah", "done", MessageBoxButtons.OK);
+            wb.Close();
+            MessageBox.Show("Matrix R Selesai", "Done!", MessageBoxButtons.OK);
+        }
+
+        private void button11_Click(object sender, EventArgs e) //Mean Image
+        {
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+            string path  = projectPath + @"/pcaProcess/MatrixR.xlsx";
+            string path2 = projectPath + @"/pcaProcess/MeanImage.xlsx";
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"]; //Matrix R
+
+            Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
+            Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"]; //Matrix Mean Image
+
+            int sum = 0;
+            for (int i = 1; i <= 2304; i++)
+            {
+                for (int j = 1; j <= 2178; j++)
+                {
+                    sum += sh.Cells[i, j].Value;
+                }
+                int avg = sum / 2178;
+                sh2.Cells[i, 1].Value = avg;
+                sum = 0;
+            }
+
+            wb.Save();
+            wb2.Save();
+            wb.Close();
+            wb2.Close();
+
+
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+            string path = projectPath + @"/pcaProcess/MatrixR.xlsx";
+            string path2 = projectPath + @"/pcaProcess/MeanImage.xlsx";
+            string path3 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"]; //Matrix R
+
+            Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
+            Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"]; //Matrix Mean Image
+
+            Excel.Workbook wb3 = ExcelApp.Workbooks.Open(path3);
+            Excel.Worksheet sh3 = (Excel.Worksheet)wb3.Sheets["Sheet1"]; //Matrix Centered Mean
+
+            for (int i = 1; i <= 2178; i++)
+            {
+                for (int j = 1; j <= 2304; j++)
+                {
+                    sh3.Cells[j, i].Value = sh.Cells[j, i].Value - sh2.Cells[j, 1].Value;
+                }
+            }
+
+            wb.Save();
+            wb2.Save();
+            wb3.Save();
+            wb.Close();
+            wb2.Close();
+            wb3.Close();
+
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+            string path = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            string path2 = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"];
+
+            Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
+            Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"];
+
+            for (int i = 1; i <= 2304; i++)
+            {
+                for (int j = 1; j <= 2178; j++)
+                {
+                    sh2.Cells[j, i].Value = sh.Cells[i, j].Value;
+                }
+            }
+
+            wb.Save();
+            wb2.Save();
+            wb.Close();
+            wb2.Close();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+            string path = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
+            string path2 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            string path3 = projectPath + @"/pcaProcess/CovMatrix.xlsx";
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"];
+
+            Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
+            Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"];
+
+            Excel.Workbook wb3 = ExcelApp.Workbooks.Open(path2);
+            Excel.Worksheet sh3 = (Excel.Worksheet)wb3.Sheets["Sheet1"];
+
+            for (int i = 1; i <= 2178; i++)
+            {
+                for (int j = 1; j <= 2178; j++)
+                {
+
+                }
+            }
+
+
+            
         }
 
     }

@@ -42,6 +42,10 @@
             this.button9 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,9 +122,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(329, 42);
+            this.button5.Location = new System.Drawing.Point(411, 187);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.Size = new System.Drawing.Size(85, 23);
             this.button5.TabIndex = 8;
             this.button5.Text = "Binarization";
             this.button5.UseVisualStyleBackColor = true;
@@ -128,9 +132,9 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(329, 72);
+            this.button6.Location = new System.Drawing.Point(411, 216);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.Size = new System.Drawing.Size(85, 23);
             this.button6.TabIndex = 9;
             this.button6.Text = "Detect Edge";
             this.button6.UseVisualStyleBackColor = true;
@@ -138,9 +142,9 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(329, 99);
+            this.button7.Location = new System.Drawing.Point(411, 245);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.Size = new System.Drawing.Size(85, 23);
             this.button7.TabIndex = 10;
             this.button7.Text = "Segment";
             this.button7.UseVisualStyleBackColor = true;
@@ -176,13 +180,53 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(329, 128);
+            this.button10.Location = new System.Drawing.Point(329, 41);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(76, 35);
+            this.button10.Size = new System.Drawing.Size(75, 23);
             this.button10.TabIndex = 14;
-            this.button10.Text = "Set Array Vector";
+            this.button10.Text = "Matrix R";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(329, 71);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(75, 23);
+            this.button11.TabIndex = 15;
+            this.button11.Text = "Mean Image";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(329, 101);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(75, 37);
+            this.button12.TabIndex = 16;
+            this.button12.Text = "Center Image";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(329, 145);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(75, 47);
+            this.button13.TabIndex = 17;
+            this.button13.Text = "Transpose Center Mean";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(329, 199);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(75, 23);
+            this.button14.TabIndex = 18;
+            this.button14.Text = "CovMatrix";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // Form1
             // 
@@ -190,6 +234,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(508, 427);
+            this.Controls.Add(this.button14);
+            this.Controls.Add(this.button13);
+            this.Controls.Add(this.button12);
+            this.Controls.Add(this.button11);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button9);
@@ -228,6 +276,10 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button14;
     }
 }
 
