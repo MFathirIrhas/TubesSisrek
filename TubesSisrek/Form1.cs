@@ -317,7 +317,7 @@ namespace TubesSisrek
             wb.Close();
             wb2.Close();
 
-
+            MessageBox.Show("Mean Image Selesai", "Done", MessageBoxButtons.OK);
         }
 
         private void button12_Click(object sender, EventArgs e)
