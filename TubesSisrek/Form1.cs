@@ -320,13 +320,16 @@ namespace TubesSisrek
             MessageBox.Show("Mean Image Selesai", "Done", MessageBoxButtons.OK);
         }
 
-        private void button12_Click(object sender, EventArgs e)
+        private void button12_Click(object sender, EventArgs e) //Subtract the mean --> centered image
         {
             string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-            string path = projectPath + @"/pcaProcess/MatrixR.xlsx";
-            string path2 = projectPath + @"/pcaProcess/MeanImage.xlsx";
-            string path3 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            //string path = projectPath + @"/pcaProcess/MatrixR.xlsx";
+            //string path2 = projectPath + @"/pcaProcess/MeanImage.xlsx";
+            //string path3 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            string path = projectPath + @"/pcaProcess/testing.xlsx";
+            string path2 = projectPath + @"/pcaProcess/testing2.xlsx";
+            string path3 = projectPath + @"/pcaProcess/testing3.xlsx";
             Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
             Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
@@ -338,9 +341,9 @@ namespace TubesSisrek
             Excel.Workbook wb3 = ExcelApp.Workbooks.Open(path3);
             Excel.Worksheet sh3 = (Excel.Worksheet)wb3.Sheets["Sheet1"]; //Matrix Centered Mean
 
-            for (int i = 1; i <= 2178; i++)
+            for (int i = 1; i <=3 /*2178*/; i++)
             {
-                for (int j = 1; j <= 2304; j++)
+                for (int j = 1; j <= 4/*2304*/; j++)
                 {
                     sh3.Cells[j, i].Value = sh.Cells[j, i].Value - sh2.Cells[j, 1].Value;
                 }
@@ -352,16 +355,18 @@ namespace TubesSisrek
             wb.Close();
             wb2.Close();
             wb3.Close();
-
+            MessageBox.Show("Centered Image Selesai", "Done", MessageBoxButtons.OK);
         }
 
-        private void button13_Click(object sender, EventArgs e)
+        private void button13_Click(object sender, EventArgs e) //Transpose
         {
             
             string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-            string path = projectPath + @"/pcaProcess/CenteredMean.xlsx";
-            string path2 = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
+            //string path = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            //string path2 = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
+            string path = projectPath + @"/pcaProcess/testing3.xlsx";
+            string path2 = projectPath + @"/pcaProcess/transposetesting3.xlsx";
             Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
 
@@ -371,9 +376,9 @@ namespace TubesSisrek
             Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
             Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"];
 
-            for (int i = 1; i <= 2304; i++)
+            for (int i = 1; i <= 4/*2304*/; i++)
             {
-                for (int j = 1; j <= 2178; j++)
+                for (int j = 1; j <=3 /*2178*/; j++)
                 {
                     sh2.Cells[j, i].Value = sh.Cells[i, j].Value;
                 }
@@ -385,13 +390,16 @@ namespace TubesSisrek
             wb2.Close();
         }
 
-        private void button14_Click(object sender, EventArgs e)
+        private void button14_Click(object sender, EventArgs e) //CovMatrix
         {
             string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-            string path = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
-            string path2 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
-            string path3 = projectPath + @"/pcaProcess/CovMatrix.xlsx";
+            //string path = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
+            //string path2 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            //string path3 = projectPath + @"/pcaProcess/CovMatrix.xlsx";
+            string path = projectPath + @"/pcaProcess/transposetesting3.xlsx";
+            string path2 = projectPath + @"/pcaProcess/testing3.xlsx";
+            string path3 = projectPath + @"/pcaProcess/ttCovMatrix.xlsx";
             Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
 
@@ -401,19 +409,33 @@ namespace TubesSisrek
             Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
             Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"];
 
-            Excel.Workbook wb3 = ExcelApp.Workbooks.Open(path2);
+            Excel.Workbook wb3 = ExcelApp.Workbooks.Open(path3);
             Excel.Worksheet sh3 = (Excel.Worksheet)wb3.Sheets["Sheet1"];
-
-            for (int i = 1; i <= 2178; i++)
+            int[,] temp = new int[2,2];
+            for (int i = 1; i <= 3 /*2178*/; i++)
             {
-                for (int j = 1; j <= 2178; j++)
+                for (int j = 1; j <= 3 /*2178*/; j++)
                 {
-
+                    for (int k = 1; k <= 4 /*2178*/; k++)
+                    {
+                        //sh3.Cells[i, j].Value += sh.Cells[i, k].Value * sh2.Cells[k, j].Value;
+                        temp[i-1, j-1] += sh.Cells[i, k].Value * sh2.Cells[k, j].Value;
+                        //sh3.Cells[1, 1].Value = sh.Cells[1, 1].Value * sh2.Cells[1, 1].Value;
+                        //sh3.Cells[1, 1].Value = temp[1, 1];
+                    }
+                    //sh3.Cells[i, j].Value = temp;
                 }
             }
+            //sh3.Cells[8, 8].Value = sh.Cells[1,1].Value * sh2.Cells[1,1].Value;
+            //MessageBox.Show(temp.ToString(), "done", MessageBoxButtons.OK);
+            wb.Save();
+            wb2.Save();
+            wb3.Save();
+            wb.Close();
+            wb2.Close();
+            wb3.Close();
+            MessageBox.Show("Covariance Matrix Selesai", "done",MessageBoxButtons.OK);
 
-
-            
         }
 
     }
