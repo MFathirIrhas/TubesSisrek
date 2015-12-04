@@ -324,12 +324,12 @@ namespace TubesSisrek
         {
             string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-            //string path = projectPath + @"/pcaProcess/MatrixR.xlsx";
-            //string path2 = projectPath + @"/pcaProcess/MeanImage.xlsx";
-            //string path3 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
-            string path = projectPath + @"/pcaProcess/testing.xlsx";
-            string path2 = projectPath + @"/pcaProcess/testing2.xlsx";
-            string path3 = projectPath + @"/pcaProcess/testing3.xlsx";
+            string path = projectPath + @"/pcaProcess/MatrixR.xlsx";
+            string path2 = projectPath + @"/pcaProcess/MeanImage.xlsx";
+            string path3 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            //string path = projectPath + @"/pcaProcess/testing.xlsx";
+            //string path2 = projectPath + @"/pcaProcess/testing2.xlsx";
+            //string path3 = projectPath + @"/pcaProcess/testing3.xlsx";
             Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
             Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
@@ -341,9 +341,9 @@ namespace TubesSisrek
             Excel.Workbook wb3 = ExcelApp.Workbooks.Open(path3);
             Excel.Worksheet sh3 = (Excel.Worksheet)wb3.Sheets["Sheet1"]; //Matrix Centered Mean
 
-            for (int i = 1; i <=3 /*2178*/; i++)
+            for (int i = 1; i <=2178; i++)
             {
-                for (int j = 1; j <= 4/*2304*/; j++)
+                for (int j = 1; j <= 2304; j++)
                 {
                     sh3.Cells[j, i].Value = sh.Cells[j, i].Value - sh2.Cells[j, 1].Value;
                 }
@@ -363,10 +363,10 @@ namespace TubesSisrek
             
             string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-            //string path = projectPath + @"/pcaProcess/CenteredMean.xlsx";
-            //string path2 = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
-            string path = projectPath + @"/pcaProcess/testing3.xlsx";
-            string path2 = projectPath + @"/pcaProcess/transposetesting3.xlsx";
+            string path = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            string path2 = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
+            //string path = projectPath + @"/pcaProcess/testing3.xlsx";
+            //string path2 = projectPath + @"/pcaProcess/transposetesting3.xlsx";
             Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
 
@@ -376,9 +376,9 @@ namespace TubesSisrek
             Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
             Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"];
 
-            for (int i = 1; i <= 4/*2304*/; i++)
+            for (int i = 462; i <= 2304; i++)
             {
-                for (int j = 1; j <=3 /*2178*/; j++)
+                for (int j = 1; j <=2178; j++)
                 {
                     sh2.Cells[j, i].Value = sh.Cells[i, j].Value;
                 }
@@ -388,6 +388,7 @@ namespace TubesSisrek
             wb2.Save();
             wb.Close();
             wb2.Close();
+            MessageBox.Show("Transpose sudah selesai", "Done", MessageBoxButtons.OK);
         }
 
         private void button14_Click(object sender, EventArgs e) //CovMatrix
