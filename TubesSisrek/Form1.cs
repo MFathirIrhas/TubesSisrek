@@ -239,13 +239,13 @@ namespace TubesSisrek
             
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void button10_Click(object sender, EventArgs e) //Matrix R
         {
             string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-            //string path = projectPath + @"/PreProcessedDataSet/Data-Latih";
-            string path = projectPath + @"/ImageDataSet/Data-Latih";
-            string path2 = projectPath + @"/RawDataSet2/MatrixR.xlsx";
+            string path = projectPath + @"/HistEqDataSet/Data-Latih";
+            //string path = projectPath + @"/ImageDataSet/Data-Latih";
+            string path2 = projectPath + @"/pcaProcess/MatrixR.xlsx";
 
             Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
@@ -260,7 +260,7 @@ namespace TubesSisrek
 
             int i = 1;
             int img = 0;
-            for (int j = 1; j <=100 /*2178*/; j++)
+            for (int j = 1; j <=2178; j++)
             {
                 Image image = Image.FromFile(path + "/" + sortedImages[img].Name);
                 Bitmap b = new Bitmap(image);
@@ -282,7 +282,208 @@ namespace TubesSisrek
                 i = 1;
             }
             wb.Save();
-            MessageBox.Show("Sudah", "done", MessageBoxButtons.OK);
+            wb.Close();
+            MessageBox.Show("Matrix R Selesai", "Done!", MessageBoxButtons.OK);
+        }
+
+        private void button11_Click(object sender, EventArgs e) //Mean Image
+        {
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+            string path  = projectPath + @"/pcaProcess/MatrixR.xlsx";
+            string path2 = projectPath + @"/pcaProcess/MeanImage.xlsx";
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"]; //Matrix R
+
+            Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
+            Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"]; //Matrix Mean Image
+
+            int sum = 0;
+            for (int i = 1; i <= 2304; i++)
+            {
+                for (int j = 1; j <= 2178; j++)
+                {
+                    sum += sh.Cells[i, j].Value;
+                }
+                int avg = sum / 2178;
+                sh2.Cells[i, 1].Value = avg;
+                sum = 0;
+            }
+
+            wb.Save();
+            wb2.Save();
+            wb.Close();
+            wb2.Close();
+
+            MessageBox.Show("Mean Image Selesai", "Done", MessageBoxButtons.OK);
+        }
+
+        private void button12_Click(object sender, EventArgs e) //Subtract the mean --> centered image
+        {
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+            string path = projectPath + @"/pcaProcess/MatrixR.xlsx";
+            string path2 = projectPath + @"/pcaProcess/MeanImage.xlsx";
+            string path3 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            //string path = projectPath + @"/pcaProcess/testing.xlsx";
+            //string path2 = projectPath + @"/pcaProcess/testing2.xlsx";
+            //string path3 = projectPath + @"/pcaProcess/testing3.xlsx";
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"]; //Matrix R
+
+            Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
+            Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"]; //Matrix Mean Image
+
+            Excel.Workbook wb3 = ExcelApp.Workbooks.Open(path3);
+            Excel.Worksheet sh3 = (Excel.Worksheet)wb3.Sheets["Sheet1"]; //Matrix Centered Mean
+
+            for (int i = 1; i <=2178; i++)
+            {
+                for (int j = 1; j <= 2304; j++)
+                {
+                    sh3.Cells[j, i].Value = sh.Cells[j, i].Value - sh2.Cells[j, 1].Value;
+                }
+            }
+
+            wb.Save();
+            wb2.Save();
+            wb3.Save();
+            wb.Close();
+            wb2.Close();
+            wb3.Close();
+            MessageBox.Show("Centered Image Selesai", "Done", MessageBoxButtons.OK);
+        }
+
+        private void button13_Click(object sender, EventArgs e) //Transpose
+        {
+            
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+            string path = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            string path2 = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
+            //string path = projectPath + @"/pcaProcess/testing3.xlsx";
+            //string path2 = projectPath + @"/pcaProcess/transposetesting3.xlsx";
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"];
+
+            Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
+            Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"];
+
+            for (int i = 462; i <= 2304; i++)
+            {
+                for (int j = 1; j <=2178; j++)
+                {
+                    sh2.Cells[j, i].Value = sh.Cells[i, j].Value;
+                }
+            }
+
+            wb.Save();
+            wb2.Save();
+            wb.Close();
+            wb2.Close();
+            MessageBox.Show("Transpose sudah selesai", "Done", MessageBoxButtons.OK);
+        }
+
+        private void button14_Click(object sender, EventArgs e) //CovMatrix
+        {
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+            //string path = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
+            //string path2 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            //string path3 = projectPath + @"/pcaProcess/CovMatrix.xlsx";
+            string path = projectPath + @"/pcaProcess/transposetesting3.xlsx";
+            string path2 = projectPath + @"/pcaProcess/testing3.xlsx";
+            string path3 = projectPath + @"/pcaProcess/ttCovMatrix.xlsx";
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"];
+
+            Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
+            Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"];
+
+            Excel.Workbook wb3 = ExcelApp.Workbooks.Open(path3);
+            Excel.Worksheet sh3 = (Excel.Worksheet)wb3.Sheets["Sheet1"];
+            int[,] temp = new int[2,2];
+            for (int i = 1; i <= 3 /*2178*/; i++)
+            {
+                for (int j = 1; j <= 3 /*2178*/; j++)
+                {
+                    for (int k = 1; k <= 4 /*2178*/; k++)
+                    {
+                        //sh3.Cells[i, j].Value += sh.Cells[i, k].Value * sh2.Cells[k, j].Value;
+                        temp[i-1, j-1] += sh.Cells[i, k].Value * sh2.Cells[k, j].Value;
+                        //sh3.Cells[1, 1].Value = sh.Cells[1, 1].Value * sh2.Cells[1, 1].Value;
+                        //sh3.Cells[1, 1].Value = temp[1, 1];
+                    }
+                    //sh3.Cells[i, j].Value = temp;
+                }
+            }
+            //sh3.Cells[8, 8].Value = sh.Cells[1,1].Value * sh2.Cells[1,1].Value;
+            //MessageBox.Show(temp.ToString(), "done", MessageBoxButtons.OK);
+            wb.Save();
+            wb2.Save();
+            wb3.Save();
+            wb.Close();
+            wb2.Close();
+            wb3.Close();
+            MessageBox.Show("Covariance Matrix Selesai", "done",MessageBoxButtons.OK);
+
+        }
+
+        private void button15_Click(object sender, EventArgs e) //centeredmean raw to image
+        {
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            string path = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"];
+
+            string SavePath = projectPath + "/CenteredMeanImage/CenteredMeanImage/";
+            int width = 48;
+            int height = 48;
+            var b = new Bitmap(width, height, PixelFormat.Format24bppRgb);
+            int i = 1; //Inisialisasi Kolom nilai Pixel
+            for (int j = 1; j <=4 /*2178*/; j++)
+            {
+                for (int y = 0; y < 48; y++)
+                {
+                    for (int x = 0; x < 48; x++)
+                    {
+                        if (sh.Cells[i, j].Value < 0)
+                        {
+                            sh.Cells[i, j].Value = 0;
+                            int rgb = Convert.ToInt32(sh.Cells[i, j].Value);
+                            Color c = Color.FromArgb(rgb, rgb, rgb);
+                            b.SetPixel(x, y, c);
+                            i = i + 1;
+                        }
+                        else
+                        {
+                            int rgb = Convert.ToInt32(sh.Cells[i, j].Value);
+                            Color c = Color.FromArgb(rgb, rgb, rgb);
+                            b.SetPixel(x, y, c);
+                            i = i + 1;
+                        }
+                        
+                    }
+                }
+                string filename = "CMI_"+j+".bmp";
+                b.Save(SavePath + filename, ImageFormat.Bmp);
+                i = 1;
+            }
+            wb.Save();
+            wb.Close();
+            MessageBox.Show("Image Saved!", "Success", MessageBoxButtons.OK);
         }
 
     }

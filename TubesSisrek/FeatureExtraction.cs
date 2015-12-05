@@ -183,9 +183,6 @@ namespace TubesSisrek
             list.Add(nb);
         }
 
-        
-        
-
 
     }
 }
