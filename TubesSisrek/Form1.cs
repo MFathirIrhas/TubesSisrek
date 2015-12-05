@@ -439,6 +439,53 @@ namespace TubesSisrek
 
         }
 
+        private void button15_Click(object sender, EventArgs e) //centeredmean raw to image
+        {
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            string path = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"];
+
+            string SavePath = projectPath + "/CenteredMeanImage/CenteredMeanImage/";
+            int width = 48;
+            int height = 48;
+            var b = new Bitmap(width, height, PixelFormat.Format24bppRgb);
+            int i = 1; //Inisialisasi Kolom nilai Pixel
+            for (int j = 1; j <=4 /*2178*/; j++)
+            {
+                for (int y = 0; y < 48; y++)
+                {
+                    for (int x = 0; x < 48; x++)
+                    {
+                        if (sh.Cells[i, j].Value < 0)
+                        {
+                            sh.Cells[i, j].Value = 0;
+                            int rgb = Convert.ToInt32(sh.Cells[i, j].Value);
+                            Color c = Color.FromArgb(rgb, rgb, rgb);
+                            b.SetPixel(x, y, c);
+                            i = i + 1;
+                        }
+                        else
+                        {
+                            int rgb = Convert.ToInt32(sh.Cells[i, j].Value);
+                            Color c = Color.FromArgb(rgb, rgb, rgb);
+                            b.SetPixel(x, y, c);
+                            i = i + 1;
+                        }
+                        
+                    }
+                }
+                string filename = "CMI_"+j+".bmp";
+                b.Save(SavePath + filename, ImageFormat.Bmp);
+                i = 1;
+            }
+            wb.Save();
+            wb.Close();
+            MessageBox.Show("Image Saved!", "Success", MessageBoxButtons.OK);
+        }
+
     }
 }
 
