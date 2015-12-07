@@ -327,6 +327,7 @@ namespace TubesSisrek
             string path = projectPath + @"/pcaProcess/MatrixR.xlsx";
             string path2 = projectPath + @"/pcaProcess/MeanImage.xlsx";
             string path3 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            //string path3 = projectPath + @"/pcaProcess/testingCM.xlsx";
             //string path = projectPath + @"/pcaProcess/testing.xlsx";
             //string path2 = projectPath + @"/pcaProcess/testing2.xlsx";
             //string path3 = projectPath + @"/pcaProcess/testing3.xlsx";
@@ -341,7 +342,7 @@ namespace TubesSisrek
             Excel.Workbook wb3 = ExcelApp.Workbooks.Open(path3);
             Excel.Worksheet sh3 = (Excel.Worksheet)wb3.Sheets["Sheet1"]; //Matrix Centered Mean
 
-            for (int i = 1; i <=2178; i++)
+            for (int i = 1; i <=4/*2178*/; i++)
             {
                 for (int j = 1; j <= 2304; j++)
                 {
@@ -395,12 +396,12 @@ namespace TubesSisrek
         {
             string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-            //string path = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
-            //string path2 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
-            //string path3 = projectPath + @"/pcaProcess/CovMatrix.xlsx";
-            string path = projectPath + @"/pcaProcess/transposetesting3.xlsx";
-            string path2 = projectPath + @"/pcaProcess/testing3.xlsx";
-            string path3 = projectPath + @"/pcaProcess/ttCovMatrix.xlsx";
+            string path = projectPath + @"/pcaProcess/TCenteredMean.xlsx";
+            string path2 = projectPath + @"/pcaProcess/CenteredMean.xlsx";
+            string path3 = projectPath + @"/pcaProcess/CovMatrix.xlsx";
+            //string path = projectPath + @"/pcaProcess/transposetesting3.xlsx";
+            //string path2 = projectPath + @"/pcaProcess/testing3.xlsx";
+            //string path3 = projectPath + @"/pcaProcess/ttCovMatrix.xlsx";
             Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
 
@@ -412,21 +413,29 @@ namespace TubesSisrek
 
             Excel.Workbook wb3 = ExcelApp.Workbooks.Open(path3);
             Excel.Worksheet sh3 = (Excel.Worksheet)wb3.Sheets["Sheet1"];
-            int[,] temp = new int[2,2];
-            for (int i = 1; i <= 3 /*2178*/; i++)
+            int[,] temp = new int[2178, 2178];
+            for (int i = 0; i < temp.GetLength(0) /*2178*/; i++)
             {
-                for (int j = 1; j <= 3 /*2178*/; j++)
+                for (int j = 0; j < temp.GetLength(1) /*2178*/; j++)
                 {
-                    for (int k = 1; k <= 4 /*2178*/; k++)
+                    for (int k = 1; k <= 2/*2304*/; k++)
                     {
-                        //sh3.Cells[i, j].Value += sh.Cells[i, k].Value * sh2.Cells[k, j].Value;
-                        temp[i-1, j-1] += sh.Cells[i, k].Value * sh2.Cells[k, j].Value;
-                        //sh3.Cells[1, 1].Value = sh.Cells[1, 1].Value * sh2.Cells[1, 1].Value;
-                        //sh3.Cells[1, 1].Value = temp[1, 1];
+                        temp[i,j] += sh.Cells[i+1, k].Value * sh2.Cells[k, j+1].Value;
                     }
-                    //sh3.Cells[i, j].Value = temp;
                 }
             }
+
+            for (int x = 0; x < temp.GetLength(0); x++)
+            {
+                for (int y = 0; y < temp.GetLength(1); y++)
+                {
+                    //richTextBox1.Text += temp[x, y].ToString()+ " - ";
+                    sh3.Cells[x + 1, y + 1].Value = temp[x, y];
+                }
+                //richTextBox1.Text += "\n";
+            }
+            
+            //richTextBox1.Text = temp.GetLength(0).ToString();
             //sh3.Cells[8, 8].Value = sh.Cells[1,1].Value * sh2.Cells[1,1].Value;
             //MessageBox.Show(temp.ToString(), "done", MessageBoxButtons.OK);
             wb.Save();
@@ -484,6 +493,35 @@ namespace TubesSisrek
             wb.Save();
             wb.Close();
             MessageBox.Show("Image Saved!", "Success", MessageBoxButtons.OK);
+        }
+
+        private void button16_Click(object sender, EventArgs e) //Extract Eigenvector
+        {
+            string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+            string path = projectPath + @"/pcaProcess/CovMatrix.xlsx";
+            string path2 = projectPath + @"/pcaProcess/Eigenvectors.xlsx";
+            
+            Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Open(path);
+            Excel.Worksheet sh = (Excel.Worksheet)wb.Sheets["Sheet1"];
+
+            Excel.Workbook wb2 = ExcelApp.Workbooks.Open(path2);
+            Excel.Worksheet sh2 = (Excel.Worksheet)wb2.Sheets["Sheet1"];
+
+            for (int x = 1; x <= 2178; x++)
+            {
+                sh2.Cells[x, 1].Value = sh.Cells[x, x].Value;
+            }
+
+            wb.Save();
+            wb2.Save();
+            wb.Close();
+            wb2.Close();
+            MessageBox.Show("Eigenvectors Selesai", "Done", MessageBoxButtons.OK);
+
         }
 
     }
